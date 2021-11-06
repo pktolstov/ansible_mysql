@@ -1,0 +1,32 @@
+---
+
+
+- name: create mysql database
+  community.mysql.mysql_db:
+    check_implicit_admin: yes
+    login_user: root
+    login_password: "{{ mysql.root_password }}"
+    name: "{{ mysql.db }}"
+    state: present
+  tags:
+  - mysql
+  - mysql::config
+  #- always
+
+
+- name: create db user
+  community.mysql.mysql_user:
+    login_user: root
+    login_password: "{{ mysql.root_password }}"
+    name: "{{ mysql.user }}"
+    password: "{{ mysql.password }}"
+    priv: "{{ mysql.privileges }}"
+    host: '%'
+    state: present
+  tags:
+  - mysql
+  - mysql::config
+  #- always
+
+
+

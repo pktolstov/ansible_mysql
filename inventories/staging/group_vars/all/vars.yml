@@ -1,0 +1,12 @@
+---
+
+nginx_root_dir: "/data/nginx_1"
+
+mysql:
+    db: 'gb-db'
+    user: 'gbuser'
+    password: 'Pass*good12345'
+    privileges: '*.*:ALL'
+    host: '%'
+    bind: '0.0.0.0'
+    root_password: 'Pass*good12345'

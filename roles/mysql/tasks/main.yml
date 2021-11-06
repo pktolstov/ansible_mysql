@@ -1,0 +1,27 @@
+---
+
+- name: 'INSTALL-REPO | mysql repository'
+  import_tasks: 'repo_install.yml'
+  tags: ['mysql', 'mysql::repo_install']
+
+- name: 'INSTALL_MYSQL | install mysql'
+  import_tasks: 'install_mysql.yml'
+  tags: ['mysql', 'mysql::install']
+
+- name: 'CHANGECONFIG | change config_file mysql'
+  import_tasks: 'change_auth_method.yml'
+  tags: ['mysql', 'mysql::changeconfig']
+
+- name: 'CHANGROOTPASSWD | change root password mysql'
+  import_tasks: 'update_root_passwd.yml'
+  tags: ['mysql', 'mysql::change_root_passwd']
+
+
+- name: 'CONFIG | configure mysql'
+  import_tasks: 'config_sql.yml'
+  tags: ['mysql', 'mysql::config']
+
+
+
+
+

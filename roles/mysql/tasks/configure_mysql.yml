@@ -1,0 +1,37 @@
+---
+
+- name: create mysql database
+  community.mysql.mysql_db:
+    name: "{{ mysql.db }}"
+    state: present
+  tags:
+  - mysql
+  - mysql::configure
+
+
+- name: create db user
+  community.mysql.mysql_user:
+    name: "{{ mysql.user }}"
+    password: "{{ mysql.password }}"
+    priv: "{{ mysql.privileges }}"
+    host: "{{ mysql.host }}"
+    state: present
+  tags:
+  - mysql
+  - mysql::configure
+
+- name: bind mysql remote address
+  ansible.builtin.lineinfile:
+    path: /etc/my.cnf
+    line: bind-address 0.0.0.0
+    create: yes
+  tags:
+  - mysql
+  - mysq::configure
+  notify:
+  - restart mysql
+
+
+- name: Collect all possible information using passwordless root access
+  community.mysql.mysql_info:
+    login_user: root

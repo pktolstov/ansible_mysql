@@ -1,0 +1,18 @@
+---
+
+- name: get root password
+  shell: "grep 'A temporary password is generated for root@localhost' /var/log/mysqld.log | awk -F ' ' '{print $(NF)}'"
+  register: root_password # save to variable
+  tags:
+  - mysql
+  - mysql::change_root_passwd
+  #- always
+
+
+- name: update expired root user password
+  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql.root_password }}';"
+  tags:
+  - mysql
+  - mysql::change_root_passwd
+ # - always
+

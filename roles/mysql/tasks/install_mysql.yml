@@ -1,0 +1,42 @@
+---
+
+- name: install MySQL
+  yum:
+    name: mysql
+    state: present
+  tags:
+  - mysql
+  - mysql::install
+
+- name: install MySQL-server
+  yum:
+    name: mysql-server
+    state: present
+  tags:
+  - mysql
+  - mysql::install
+
+- name: run MySQL
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
+  tags:
+  - mysql
+  - mysql::install
+
+- name: install required python MySQLdb lib to create databases and users gcc++
+  yum:
+    name: gcc-c++
+    state: present
+  tags:
+  - mysql
+  - mysql::install
+
+- name: install required python MySQLdb lib to create databases and users MySQL-Python
+  yum:
+    name: MySQL-python
+    state: present
+  tags:
+  - mysql
+  - mysql::install

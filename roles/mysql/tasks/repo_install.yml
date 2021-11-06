@@ -1,0 +1,13 @@
+---
+
+- name: download remi-mysql repo
+  get_url:
+    url: https://dev.mysql.com/get/mysql80-community-release-el7-4.noarch.rpm
+    dest: /tmp/mysql80-community-release-el7-4.noarch.rpm
+  tags: mysql
+
+- name: install mysql repo
+  shell: /bin/rpm -Uvh /tmp/mysql80-community-release-el7-4.noarch.rpm
+  register: mysql_repo_result
+  failed_when: "'conflict' in mysql_repo_result.stderr"
+  tags: mysql
